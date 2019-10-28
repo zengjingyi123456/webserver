@@ -106,6 +106,6 @@ def _application(env, start_response):
 		return app(env, start_response)
 
 
-httpd = make_server(config.LOCALHOST, 80, _application)
+httpd = make_server(config.LOCALHOST, 8000, _application)
 print('Serving HTTP on port 80...')
 httpd.serve_forever()
