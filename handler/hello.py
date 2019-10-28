@@ -4,28 +4,21 @@ import ssl
 import requests
 import os
 import json
-
+import logic.Team1903.branches as Branch
+import logic.Team1903.infomation as Info
 repos = ['cxsjclassroom/webserver',"octocat/Hello-World"]
 
 @route('/hello.py.html')
 def projectInfo(cookies):
-	info = {}
-	for repo in repos:
-		repo_url = 'https://api.github.com/repos/%s'%repo #确定url
-		repoInfo = readURL('Repositories/reposInfo/%s'%(repo),repo_url )#访问url得到数据
-		repoInfo = repoInfo and json.loads(repoInfo)#将数据类型转换
-		#提取想要的信息保存在info中
-		info[repo] = {
-			"stargazers_count":repoInfo['stargazers_count'],
-			'watchers_count':repoInfo['watchers_count'],
-			'created_at':repoInfo['created_at'],
-			'size':repoInfo['size'],
-			'forks_count':repoInfo['forks_count'],
-			'open_issues':repoInfo['open_issues']
-
-		}
+	info = Info.getInfo()
 	#将info返回给页面
 	return response(projectInfo=info)
+
+@route('/hellobran.py.html')
+def projectBranches(cookies):
+	bran = Branch.getBranches()
+	#将info返回给页面
+	return response(projectBran=bran)
 
 
 

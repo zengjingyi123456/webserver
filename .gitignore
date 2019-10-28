@@ -2,3 +2,4 @@
 uwsgi.log
 uwsgi.pid
 *.pyc
+/test/test.py
