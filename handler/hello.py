@@ -6,6 +6,8 @@ import os
 import json
 import logic.Team1903.branches as Branch
 import logic.Team1903.infomation as Info
+import logic.Team1903.commits as Co
+import logic.Team1903.JMH as P
 repos = ['cxsjclassroom/webserver',"octocat/Hello-World"]
 
 @route('/hello.py.html')
@@ -19,6 +21,16 @@ def projectBranches(cookies):
 	bran = Branch.getBranches()
 	#将info返回给页面
 	return response(projectBran=bran)
+@route('/helloCo.py.html')
+def projectCommits(cookies):
+	commits = Co.getCommits()
+	#将info返回给页面
+	return response(projectCo=commits)
+@route('/path.py.html')
+def projectPath(cookies):
+	JMH = P.getJMH()
+	#将info返回给页面
+	return response(projectPa=JMH)
 
 
 
