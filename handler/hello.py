@@ -11,23 +11,23 @@ import logic.Team1903.JMH as P
 repos = ['cxsjclassroom/webserver',"octocat/Hello-World"]
 
 @route('/hello.py.html')
-def projectInfo(cookies):
+def projectInfo():
 	info = Info.getInfo()
 	#将info返回给页面
 	return response(projectInfo=info)
 
 @route('/hellobran.py.html')
-def projectBranches(cookies):
+def projectBranches():
 	bran = Branch.getBranches()
 	#将info返回给页面
 	return response(projectBran=bran)
 @route('/helloCo.py.html')
-def projectCommits(cookies):
+def projectCommits():
 	commits = Co.getCommits()
 	#将info返回给页面
 	return response(projectCo=commits)
 @route('/path.py.html')
-def projectPath(cookies):
+def projectPath():
 	JMH = P.getJMH()
 	#将info返回给页面
 	return response(projectPa=JMH)
