@@ -1,6 +1,7 @@
 #-*- coding: utf-8 -*-
 
 import os
+repos = ["apache/cassandra","apache/camel","apache/hive","apache/commons-lang"]
 def gitClone(name):
     projectPath = os.path.abspath('data/gitRepo/%s'%(name))
     not os.path.isdir(projectPath) and os.makedirs(projectPath)
