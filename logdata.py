@@ -120,10 +120,13 @@ def gitframe(f):
     print(plotdata)
     return plotdata
 
+
+#res=["apache/cassandra","apache/camel","apache/hive","apache/commons-lang"]
+
 #gitdata(name)
 #gittime(name)
 #gitframe(f)
-fr=gitdata('apache/cassandra')
+fr=gitdata('apache/commons-lang')
 dfra=gitframe(fr)
 pframe=pd.DataFrame(dfra)
 print(pframe)
