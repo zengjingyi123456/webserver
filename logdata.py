@@ -1,5 +1,8 @@
-import pandas as pd
+
+
 #import path_shell as ps
+
+
 import server.logic.Team1903.JMH as J
 import os
 import time
@@ -7,6 +10,10 @@ import server.logic.Team1903.infomation as Info
 import datetime
 from collections import Counter
 import matplotlib.pyplot as plt
+import pandas as pd
+
+
+
 res=["apache/cassandra","apache/camel","apache/hive","apache/commons-lang"]
 
 
@@ -46,6 +53,7 @@ def gitdata(name):
     for key in pttd.keys():
         pttl.append(pttd[key])
     logt={'name':name,'path':pathd,'ptfd':ptfd,'ptsd':ptsd,'pttd':pttd,'ptfl':ptfl,'ptsl':ptsl,'pttl':pttl,}
+    os.chdir(cwd)
     return logt
 
 
@@ -75,8 +83,28 @@ def gittime(name):
             times=pitimef-ctime
             times=times.days
             timem.append(times)
+    os.chdir(cwd)
     return timem
 
+
+def gitCID(name):
+    pathcount=1
+    projectPath = os.path.abspath('data/gitRepo/%s'%(name))
+    resd=J.getJMH(name)
+    mid=resd[name]
+    pathd=mid['path']
+    toco=mid['toco']
+    not os.path.isdir(projectPath) and os.makedirs(projectPath)
+    cwd = os.getcwd()
+    os.chdir(projectPath)
+    for pi in pathd:
+        fp=open('times'+str(pathcount)+'.txt','w+')
+        fr=fp.readlines()
+        for l in fr:
+            stri=l.split()
+    os.chdir(cwd)
+    os.chdir(cwd)
+    return timem
 
 
 def gitframe(f):
@@ -126,12 +154,15 @@ def gitframe(f):
 #gitdata(name)
 #gittime(name)
 #gitframe(f)
+#gitCID("apache/cassandra")
+'''
 fr=gitdata('apache/commons-lang')
 dfra=gitframe(fr)
 pframe=pd.DataFrame(dfra)
 print(pframe)
 pframe.plot.bar()
 plt.show()
+'''
 
 '''
 projectPath = os.path.abspath('data/gitRepo/apache/camel')
