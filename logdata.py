@@ -67,23 +67,32 @@ def gittime(name):
     not os.path.isdir(projectPath) and os.makedirs(projectPath)
     cwd = os.getcwd()
     os.chdir(projectPath)
-    ctime=Info.gettime(name)
+    ctime=Info.getstime(name)
     ctime=ctime[:-10]
     ctime=time.strptime(ctime,"%Y-%m-%d")
     ctime=datetime.datetime(ctime[0],ctime[1],ctime[2])
     print(ctime)
     timem=[]
     for pi in pathd:
-        ptpd=pd.read_csv('times'+str(pathcount)+'.txt',sep="|")
-        ptlist=ptpd.values.tolist()
-        for pi in ptlist:
-            pi[1]=(pi[1])[:-6]
-            pitimef=time.strptime(pi[1], "%a %b %d %H:%M:%S %Y")
-            pitimef=datetime.datetime(pitimef[0],pitimef[1],pitimef[2])
-            times=pitimef-ctime
-            times=times.days
-            timem.append(times)
+        try:
+            ptpd=pd.read_csv('times'+str(pathcount)+'.txt',sep="|")
+            ptlist=ptpd.values.tolist()
+            for pi in ptlist:
+                pi[2]=(pi[2])[:-6]
+                pitimef=time.strptime(pi[2], "%a %b %d %H:%M:%S %Y")
+                pitimef=datetime.datetime(pitimef[0],pitimef[1],pitimef[2])
+                times=pitimef-ctime
+                times=times.days
+                timem.append(times)
+        except BaseException:
+            print("wrong")
+            timem.append(0)
+            pathcount=pathcount+1
+        else:
+            print("find")
+            pathcount=pathcount+1
     os.chdir(cwd)
+    print(timem)
     return timem
 
 
@@ -94,75 +103,83 @@ def gitCID(name):
     mid=resd[name]
     pathd=mid['path']
     toco=mid['toco']
+    cid=[]
     not os.path.isdir(projectPath) and os.makedirs(projectPath)
     cwd = os.getcwd()
     os.chdir(projectPath)
+    emptlist=['em','em','em']
     for pi in pathd:
-        fp=open('times'+str(pathcount)+'.txt','w+')
-        fr=fp.readlines()
-        for l in fr:
-            stri=l.split()
+        try:
+            ptpd=pd.read_csv('times'+str(pathcount)+'.txt',sep="|",header=None)
+            print(ptpd)
+            ptlist=ptpd.values.tolist()
+            for pl in ptlist:
+                cid.append(pl[0])
+                print(pl[0])
+        except BaseException:
+            print("wrong")
+            cid.append(0)
+            pathcount=pathcount+1
+        else:
+            print("find")
+            pathcount=pathcount+1
     os.chdir(cwd)
     os.chdir(cwd)
-    return timem
+    return cid
 
 
-def gitframe(f):
+def gitframe(f,tf):
     #ct=changetimes ac=athuer_count
     fframe={'file':f['path'],'ct':f['ptfl'],'ac':f['ptsl']}
     sframe={'file':f['pttd'].keys(),'act':f['pttl']}
-    #tframe={'time':tf}
+    tframe={'time':tf}
     dff=pd.DataFrame(fframe)
     sdf=pd.DataFrame(sframe)
-    #tdf=pd.DataFrame(tframe)
-    mean=[]
-    mid=[]
-    sv=[]
-    cta=dff['ct'].mean()
-    aca=dff['ac'].mean()
-    acta=sdf['act'].mean()
+    tdf=pd.DataFrame(tframe)
 
-    mean.append(cta)
-    mean.append(aca)
-    mean.append(acta)
+    cta=dff['ct'].describe()
+    aca=dff['ac'].describe()
+    acta=sdf['act'].describe()
+    ta=tdf['time'].describe()
     
-    ctm=dff['ct'].median()
-    acm=dff['ac'].median()
-    actm=sdf['act'].median()
+    #plotdata={'name':f['name'],'des':mean,'mid':mid,'var':sv}
+    #print(plotdata)
+    ctal=cta.values.tolist()
+    acal=aca.values.tolist()
+    actl=acta.values.tolist()
+    tal=ta.values.tolist()
+    result=[[ctal,acal,actl],[tal]]
     
-    mid.append(ctm)
-    mid.append(acm)
-    mid.append(actm)
+    pframe=pd.DataFrame(result[0])
+    pframe.rename(index={0:'changestime',1:'athuercount',2:'athuerchangestime'}, columns={0:'count',1:'mean',2:'std',3:'min',4:'25%',5:'50%',6:'75%',7:'max'}, inplace=True)
+    tframe=pd.DataFrame(result[1])
+    tframe.rename(index={0:'commitdaysconut'}, columns={0:'count',1:'mean',2:'std',3:'min',4:'25%',5:'50%',6:'75%',7:'max'}, inplace=True)
+    print(pframe)
+    print(tframe)
+    pframe.plot.bar()
+    plt.show()
+    tframe.plot.bar()
+    plt.show()
+    return result
 
-    ctv=dff['ct'].var()
-    acv=dff['ac'].var()
-    actv=sdf['act'].var()
-
-    sv.append(ctv)
-    sv.append(acv)
-    sv.append(actv)
-    #ta=tdf['time'].maen()
-    #print(ta)
-
-    plotdata={'name':f['name'],'avr':mean,'mid':mid,'var':sv}
-    print(plotdata)
-    return plotdata
+def gitplot(name):
+    f=gitdata(name)
+    t=gittime(name)
+    dfra=gitframe(f,t)
 
 
 #res=["apache/cassandra","apache/camel","apache/hive","apache/commons-lang"]
 
-#gitdata(name)
-#gittime(name)
-#gitframe(f)
-#gitCID("apache/cassandra")
+gitplot("apache/cassandra")
+
 '''
-fr=gitdata('apache/commons-lang')
-dfra=gitframe(fr)
-pframe=pd.DataFrame(dfra)
+pframe=pd.DataFrame(dfra[0])
+pframe.rename(index={0:'changestime',1:'athuercount',2:'athuerchangestime'}, columns={0:'count',1:'mean',2:'std',3:'min',4:'25%',5:'50%',6:'75%',7:'max'}, inplace=True)
 print(pframe)
 pframe.plot.bar()
 plt.show()
 '''
+
 
 '''
 projectPath = os.path.abspath('data/gitRepo/apache/camel')
