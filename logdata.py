@@ -14,8 +14,7 @@ import pandas as pd
 
 
 
-res=["apache/cassandra","apache/camel","apache/hive","apache/commons-lang"]
-
+repos = ["apache/cassandra","apache/camel","apache/hive","apache/commons-lang","ReactiveX/RxJava","apache/logging-log4j2"]
 
 def gitdata(name):
     pathcount=1
@@ -168,10 +167,30 @@ def gitplot(name):
     dfra=gitframe(f,t)
 
 
-#res=["apache/cassandra","apache/camel","apache/hive","apache/commons-lang"]
+#repos = ["apache/cassandra","apache/camel","apache/hive","apache/commons-lang","ReactiveX/RxJava","apache/logging-log4j2"]
 
-gitplot("apache/cassandra")
 
+
+
+
+for i in repos:
+    gitplot(i)
+    print('done')
+'''
+c=gitCID("apache/cassandra")
+print(c)
+pathcount=1
+for ci in c:
+    try:
+        cmd = 'git log --name-only %s >comid%s.txt' %(ci, str(pathcount))
+        result = os.system(cmd)
+    except BaseException:
+        print("wrong")
+        pathcount=pathcount+1
+    else:
+        print("find")
+        pathcount=pathcount+1
+'''
 '''
 pframe=pd.DataFrame(dfra[0])
 pframe.rename(index={0:'changestime',1:'athuercount',2:'athuerchangestime'}, columns={0:'count',1:'mean',2:'std',3:'min',4:'25%',5:'50%',6:'75%',7:'max'}, inplace=True)

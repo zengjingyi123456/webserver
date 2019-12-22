@@ -3,7 +3,7 @@
 import os
 import server.logic.Team1903.JMH as J
 
-res=["apache/cassandra","apache/camel","apache/hive","apache/commons-lang"]
+repos = ["apache/cassandra","apache/camel","apache/hive","apache/commons-lang","ReactiveX/RxJava","apache/logging-log4j2"]
 def gitlog(name):
     projectPath = os.path.abspath('data/gitRepo/%s'%(name))
     resd=J.getJMH(name)
@@ -30,10 +30,9 @@ def gitlog(name):
     os.chdir(cwd)
     
 
-gitlog("apache/hive")
-gitlog("apache/cassandra")
-gitlog("apache/camel")
-gitlog("apache/commons-lang")
+for i in repos:
+    gitlog(i)
+    print('done')
 
 
 
