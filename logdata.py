@@ -1,5 +1,8 @@
-import pandas as pd
+
+
 #import path_shell as ps
+
+
 import server.logic.Team1903.JMH as J
 import os
 import time
@@ -7,8 +10,11 @@ import server.logic.Team1903.infomation as Info
 import datetime
 from collections import Counter
 import matplotlib.pyplot as plt
-res=["apache/cassandra","apache/camel","apache/hive","apache/commons-lang"]
+import pandas as pd
 
+
+
+repos = ["apache/cassandra","apache/camel","apache/hive","apache/commons-lang","ReactiveX/RxJava","apache/logging-log4j2"]
 
 def gitdata(name):
     pathcount=1
@@ -46,6 +52,7 @@ def gitdata(name):
     for key in pttd.keys():
         pttl.append(pttd[key])
     logt={'name':name,'path':pathd,'ptfd':ptfd,'ptsd':ptsd,'pttd':pttd,'ptfl':ptfl,'ptsl':ptsl,'pttl':pttl,}
+    os.chdir(cwd)
     return logt
 
 
@@ -59,79 +66,139 @@ def gittime(name):
     not os.path.isdir(projectPath) and os.makedirs(projectPath)
     cwd = os.getcwd()
     os.chdir(projectPath)
-    ctime=Info.gettime(name)
+    ctime=Info.getstime(name)
     ctime=ctime[:-10]
     ctime=time.strptime(ctime,"%Y-%m-%d")
     ctime=datetime.datetime(ctime[0],ctime[1],ctime[2])
     print(ctime)
     timem=[]
     for pi in pathd:
-        ptpd=pd.read_csv('times'+str(pathcount)+'.txt',sep="|")
-        ptlist=ptpd.values.tolist()
-        for pi in ptlist:
-            pi[1]=(pi[1])[:-6]
-            pitimef=time.strptime(pi[1], "%a %b %d %H:%M:%S %Y")
-            pitimef=datetime.datetime(pitimef[0],pitimef[1],pitimef[2])
-            times=pitimef-ctime
-            times=times.days
-            timem.append(times)
+        try:
+            ptpd=pd.read_csv('times'+str(pathcount)+'.txt',sep="|")
+            ptlist=ptpd.values.tolist()
+            for pi in ptlist:
+                pi[2]=(pi[2])[:-6]
+                pitimef=time.strptime(pi[2], "%a %b %d %H:%M:%S %Y")
+                pitimef=datetime.datetime(pitimef[0],pitimef[1],pitimef[2])
+                times=pitimef-ctime
+                times=times.days
+                timem.append(times)
+        except BaseException:
+            print("wrong")
+            timem.append(0)
+            pathcount=pathcount+1
+        else:
+            print("find")
+            pathcount=pathcount+1
+    os.chdir(cwd)
+    print(timem)
     return timem
 
 
+def gitCID(name):
+    pathcount=1
+    projectPath = os.path.abspath('data/gitRepo/%s'%(name))
+    resd=J.getJMH(name)
+    mid=resd[name]
+    pathd=mid['path']
+    toco=mid['toco']
+    cid=[]
+    not os.path.isdir(projectPath) and os.makedirs(projectPath)
+    cwd = os.getcwd()
+    os.chdir(projectPath)
+    emptlist=['em','em','em']
+    for pi in pathd:
+        try:
+            ptpd=pd.read_csv('times'+str(pathcount)+'.txt',sep="|",header=None)
+            print(ptpd)
+            ptlist=ptpd.values.tolist()
+            for pl in ptlist:
+                cid.append(pl[0])
+                print(pl[0])
+        except BaseException:
+            print("wrong")
+            cid.append(0)
+            pathcount=pathcount+1
+        else:
+            print("find")
+            pathcount=pathcount+1
+    os.chdir(cwd)
+    os.chdir(cwd)
+    return cid
 
-def gitframe(f):
+
+def gitframe(f,tf):
     #ct=changetimes ac=athuer_count
     fframe={'file':f['path'],'ct':f['ptfl'],'ac':f['ptsl']}
     sframe={'file':f['pttd'].keys(),'act':f['pttl']}
-    #tframe={'time':tf}
+    tframe={'time':tf}
     dff=pd.DataFrame(fframe)
     sdf=pd.DataFrame(sframe)
-    #tdf=pd.DataFrame(tframe)
-    mean=[]
-    mid=[]
-    sv=[]
-    cta=dff['ct'].mean()
-    aca=dff['ac'].mean()
-    acta=sdf['act'].mean()
+    tdf=pd.DataFrame(tframe)
 
-    mean.append(cta)
-    mean.append(aca)
-    mean.append(acta)
+    cta=dff['ct'].describe()
+    aca=dff['ac'].describe()
+    acta=sdf['act'].describe()
+    ta=tdf['time'].describe()
     
-    ctm=dff['ct'].median()
-    acm=dff['ac'].median()
-    actm=sdf['act'].median()
+    #plotdata={'name':f['name'],'des':mean,'mid':mid,'var':sv}
+    #print(plotdata)
+    ctal=cta.values.tolist()
+    acal=aca.values.tolist()
+    actl=acta.values.tolist()
+    tal=ta.values.tolist()
+    result=[[ctal,acal,actl],[tal]]
     
-    mid.append(ctm)
-    mid.append(acm)
-    mid.append(actm)
+    pframe=pd.DataFrame(result[0])
+    pframe.rename(index={0:'changestime',1:'athuercount',2:'athuerchangestime'}, columns={0:'count',1:'mean',2:'std',3:'min',4:'25%',5:'50%',6:'75%',7:'max'}, inplace=True)
+    tframe=pd.DataFrame(result[1])
+    tframe.rename(index={0:'commitdaysconut'}, columns={0:'count',1:'mean',2:'std',3:'min',4:'25%',5:'50%',6:'75%',7:'max'}, inplace=True)
+    print(pframe)
+    print(tframe)
+    pframe.plot.bar()
+    plt.show()
+    tframe.plot.bar()
+    plt.show()
+    return result
 
-    ctv=dff['ct'].var()
-    acv=dff['ac'].var()
-    actv=sdf['act'].var()
-
-    sv.append(ctv)
-    sv.append(acv)
-    sv.append(actv)
-    #ta=tdf['time'].maen()
-    #print(ta)
-
-    plotdata={'name':f['name'],'avr':mean,'mid':mid,'var':sv}
-    print(plotdata)
-    return plotdata
+def gitplot(name):
+    f=gitdata(name)
+    t=gittime(name)
+    dfra=gitframe(f,t)
 
 
-#res=["apache/cassandra","apache/camel","apache/hive","apache/commons-lang"]
+#repos = ["apache/cassandra","apache/camel","apache/hive","apache/commons-lang","ReactiveX/RxJava","apache/logging-log4j2"]
 
-#gitdata(name)
-#gittime(name)
-#gitframe(f)
-fr=gitdata('apache/commons-lang')
-dfra=gitframe(fr)
-pframe=pd.DataFrame(dfra)
+
+
+
+
+for i in repos:
+    gitplot(i)
+    print('done')
+'''
+c=gitCID("apache/cassandra")
+print(c)
+pathcount=1
+for ci in c:
+    try:
+        cmd = 'git log --name-only %s >comid%s.txt' %(ci, str(pathcount))
+        result = os.system(cmd)
+    except BaseException:
+        print("wrong")
+        pathcount=pathcount+1
+    else:
+        print("find")
+        pathcount=pathcount+1
+'''
+'''
+pframe=pd.DataFrame(dfra[0])
+pframe.rename(index={0:'changestime',1:'athuercount',2:'athuerchangestime'}, columns={0:'count',1:'mean',2:'std',3:'min',4:'25%',5:'50%',6:'75%',7:'max'}, inplace=True)
 print(pframe)
 pframe.plot.bar()
 plt.show()
+'''
+
 
 '''
 projectPath = os.path.abspath('data/gitRepo/apache/camel')

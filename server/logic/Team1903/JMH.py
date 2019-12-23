@@ -4,7 +4,7 @@ import requests
 import os
 import json
 
-repos = ["apache/cassandra","apache/camel","apache/hive","apache/commons-lang"]
+repos = ["apache/cassandra","apache/camel","apache/hive","apache/commons-lang","ReactiveX/RxJava","apache/logging-log4j2"]
 
 def getJMH(repo):
     jmh = {}
