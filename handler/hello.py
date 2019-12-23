@@ -10,6 +10,8 @@ import logic.Team1903.commits as Co
 import logic.Team1903.JMH as P
 import logic.Team1903.c as c
 import numpy as np
+import logic.Team1903.prof as prof
+import logic.Team1903.getprof as GP
 
 
 
@@ -87,8 +89,45 @@ def projectInfo():
     times6=Info.gettime6()
 
     s=c.getinfoc()
+    hanshuzb=prof.getzb()
 
-    return response(cShow=s,timeShow6=times6,timeShow5=times5,timeShow4=times4,timeShow3=times3,timeShow2=times2,timeShow=times,infoShow=infoShow,subShow=subShow,releasesShow=releasesShow,commitShow=commitShow,contributorShow=contributorShow)
+    profTShow = [
+    # { 'genre': '函数个数', 'sold': GP.getprofT()[0]},
+    # { 'genre': '基本调用次数', 'sold': GP.getprofT()[1] },
+    # { 'genre': '函数调用次数', 'sold': GP.getprofT()[2] },
+    { 'genre': '总运行时间平均值', 'sold': GP.getprofT()[3] },
+    { 'genre': '总运行时间方差', 'sold': GP.getprofT()[4] },
+    { 'genre': '总运行时间四分位数', 'sold': GP.getprofT()[5] }
+    ]
+
+    profWShow = [
+    # { 'genre': '函数个数', 'sold': GP.getprofW()[0]},
+    # { 'genre': '基本调用次数', 'sold': GP.getprofW()[1] },
+    # { 'genre': '函数调用次数', 'sold': GP.getprofW()[2] },
+    { 'genre': '总运行时间平均值', 'sold': GP.getprofW()[3] },
+    { 'genre': '总运行时间方差', 'sold': GP.getprofW()[4] },
+    { 'genre': '总运行时间四分位数', 'sold': GP.getprofW()[5] }
+    ]
+
+    # profTShow = [
+    # { 'genre': '函数个数', 'sold': 608},
+    # { 'genre': '基本调用次数', 'sold': 702359 },
+    # { 'genre': '函数调用次数', 'sold': 702478 },
+    # { 'genre': '总运行时间平均值', 'sold': 0.0034476776315789485 },
+    # { 'genre': '总运行时间方差', 'sold': 0.0008729013824223944 },
+    # { 'genre': '总运行时间四分位数', 'sold': 1.4999999999999999e-05 }
+    # ]
+    #
+    # profWShow = [
+    # { 'genre': '函数个数', 'sold': 1602},
+    # { 'genre': '基本调用次数', 'sold': 1236107 },
+    # { 'genre': '函数调用次数', 'sold': 1362373 },
+    # { 'genre': '总运行时间平均值', 'sold': 0.06482037453183521 },
+    # { 'genre': '总运行时间方差', 'sold': 5.076666992998033 },
+    # { 'genre': '总运行时间四分位数', 'sold': 1.7e-05 }
+    # ]
+
+    return response(profWShow=profWShow,profTShow=profTShow,zbShow=hanshuzb,cShow=s,timeShow6=times6,timeShow5=times5,timeShow4=times4,timeShow3=times3,timeShow2=times2,timeShow=times,infoShow=infoShow,subShow=subShow,releasesShow=releasesShow,commitShow=commitShow,contributorShow=contributorShow)
 
 @route('/hellobran.py.html')
 def projectBranches():

@@ -12,7 +12,18 @@
 
 
 <body class="occlusion-page">
-    <h1 align="center">各个网站star数量</h1>
+    <h1 align="center">TriFusion</h1>
+    <?python
+    _.dataInfo5 = profTShow
+    ?>
+	<div align="center" id="c6"></div>
+	<h1 align="center">WALinuxAgent</h1>
+    <?python
+    _.dataInfo6 = profWShow
+    ?>
+	<div align="center" id="c7"></div>
+
+	<h1 align="center">各个网站star数量</h1>
     <?python
     _.dataInfo = infoShow
     ?>
@@ -37,14 +48,23 @@
     ?>
 	<h1 align="center">各个网站contributor数量</h1>
 	<div align="center" id="c5"></div>
-    <img align="center" src="/fig/Figure_1.png">
 
-	<img align="center" src="/fig/Figure_2.png">
 
-	<img align="center" src="/fig/Figure_3.png">
-
-	<img align="center" src="/fig/Figure_4.png">
-
+    <center><img src="/fig/Figure_1.png"><center>
+	<center><img src="/fig/Figure_1-1.png"><center>
+	<center><img src="/fig/Figure_1-2.png"><center>
+	<center><img src="/fig/Figure_1-3.png"><center>
+	<center><img src="/fig/Figure_1-4.png"><center>
+	<center><img src="/fig/Figure_1-6.png"><center>
+	<center><img src="/fig/Figure_1-7.png"><center>
+	<center><img src="/fig/Figure_1-8.png"><center>
+	<center><img src="/fig/Figure_1-9.png"><center>
+	<center><img src="/fig/Figure_1-10.png"><center>
+	<center><img src="/fig/Figure_1-11.png"><center>
+	<h1 align="center">TriFusion</h1>
+	<center><img src="/fig/profT.png"><center>
+	<h1 align="center">WALinuxAgent</h1>
+	<center><img src="/fig/profW.png"><center>
 	<div class="container">
 		<div class="occlusion-intro">
 
@@ -405,6 +425,25 @@
 							<span>
 								<?python
 									_[c]
+								?>
+							</span>
+						</div>
+					</div>
+				</li>
+				<?python
+				for zb in zbShow:
+				?>
+				<li class="occlusion-queue">
+					<div class="occlusion-task">
+						<div class="occlusion-task-name">
+							<svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><path d="M592.2304 542.3104a30.72 30.72 0 0 0-30.72-30.72H304.7424a30.72 30.72 0 1 0 0 61.44h256.768a30.72 30.72 0 0 0 30.72-30.72zM761.1904 706.9184v-61.44a30.72 30.72 0 0 0-61.44 0v92.16a30.72 30.72 0 0 0 30.72 30.72h92.16a30.72 30.72 0 1 0 0-61.44zM304.7424 459.52h256.768a30.72 30.72 0 1 0 0-61.44H304.7424a30.72 30.72 0 0 0 0 61.44zM304.7424 346.0096h395.008a30.72 30.72 0 0 0 0-61.44H304.7424a30.72 30.72 0 1 0 0 61.44z"></path><path d="M862.5152 572.8256V253.1328a92.16 92.16 0 0 0-92.16-92.16H690.688A92.16 92.16 0 0 0 599.04 78.4896H436.5312a92.16 92.16 0 0 0-91.648 82.4832H265.216a92.16 92.16 0 0 0-92.16 92.16v579.84a92.16 92.16 0 0 0 92.16 92.16h401.664a205.2096 205.2096 0 0 0 195.6352-352.3072zM234.496 832.9728V253.1328a30.72 30.72 0 0 1 30.72-30.72h109.8752a30.72 30.72 0 0 0 30.72-30.72v-21.0432a30.72 30.72 0 0 1 30.72-30.72H599.04a30.72 30.72 0 0 1 30.72 30.72v21.0432a30.72 30.72 0 0 0 30.72 30.72h109.8752a30.72 30.72 0 0 1 30.72 30.72v283.9552a205.2096 205.2096 0 0 0-226.2016 326.6048H265.216a30.72 30.72 0 0 1-30.72-30.72z m495.9744 40.96a143.9232 143.9232 0 1 1 143.9232-143.9232 144.0768 144.0768 0 0 1-143.9232 143.8208z"></path></svg>
+
+						</div>
+						<div class="occlusion-info time">
+							<svg viewBox="0 0 15 15" xmlns="http://www.w3.org/2000/svg"><path d="M.861.5H14.22v14H.861zm13.252 4.061H1.182"></path><path d="M4.639 7.913c.178-.166.475-.359.893-.359.734 0 2.093 1.164-.906 3.906h2.297m1.295-3.905h2.425s-1.4 1.693-1.4 3.906"></path></svg>
+							<span>
+								<?python
+									_[zb]
 								?>
 							</span>
 						</div>
