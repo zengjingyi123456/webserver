@@ -2,11 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bcc483ba-d249-4419-929b-131977c10299" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/server/logic/Team1903/prof.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/webserver.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/webserver.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/gitRepo/apache/camel/.mvn/wrapper/MavenWrapperDownloader.java" beforeDir="false" afterPath="$PROJECT_DIR$/data/gitRepo/apache/camel/.mvn/wrapper/MavenWrapperDownloader.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/gitRepo/apache/camel/.mvn/wrapper/maven-wrapper.jar" beforeDir="false" afterPath="$PROJECT_DIR$/data/gitRepo/apache/camel/.mvn/wrapper/maven-wrapper.jar" afterDir="false" />
@@ -175,9 +170,6 @@
       <change beforePath="$PROJECT_DIR$/data/gitRepo/apache/hive/testutils/ptest/Report.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/gitRepo/apache/hive/testutils/ptest/Report.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/gitRepo/apache/hive/testutils/ptest/hivetest.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/gitRepo/apache/hive/testutils/ptest/hivetest.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/gitRepo/apache/hive/testutils/run_tests" beforeDir="false" afterPath="$PROJECT_DIR$/data/gitRepo/apache/hive/testutils/run_tests" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/handler/hello.py" beforeDir="false" afterPath="$PROJECT_DIR$/handler/hello.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/template/hello.py.html" beforeDir="false" afterPath="$PROJECT_DIR$/template/hello.py.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/fig/Figure_1.png" beforeDir="false" afterPath="$PROJECT_DIR$/web/fig/Figure_1.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/fig/Figure_2.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/web/fig/Figure_3.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/web/fig/Figure_4.png" beforeDir="false" />
@@ -221,7 +213,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.test">
+  <component name="RunManager" selected="Python.profW">
     <configuration name="getprof" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="webserver" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -329,8 +321,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.test" />
         <item itemvalue="Python.profW" />
+        <item itemvalue="Python.test" />
         <item itemvalue="Python.profT" />
         <item itemvalue="Python.getprof" />
         <item itemvalue="Python.prof" />
